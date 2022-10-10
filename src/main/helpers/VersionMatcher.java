@@ -33,8 +33,8 @@ public class VersionMatcher {
 
 	private static Pattern REGEX_SINGLE_LONG = Pattern.compile("^(([0-9]).([0-9]).([0-9]))");
 	private static Pattern REGEX_SINGLE_SHORT = Pattern.compile("^(([0-9]).([0-9]))");
-	private static Pattern REGEX_SINGLE_FAR = Pattern.compile("^([0-9]|.{7,20})");
-	private static Pattern REGEX_SINGLE_VALUE = Pattern.compile("^(([0-9]))");
+	private static Pattern REGEX_SINGLE_VALUE = Pattern.compile("^(([0-9]{1}))");
+	private static Pattern REGEX_SINGLE_FAR = Pattern.compile("^(([0-9]|.){7,20})");
 
 	/** SPLIT STRING INTO ELEMENTS & SCAN ILLEGAL CHARS
 	 *

@@ -37,15 +37,6 @@ public class VersionTests {
         Assert.assertEquals("1.0", controller.nextVersionFrom("9.9"));
     }
 
-    /** FORMATTED VERSION MATCHER
-     *
-     *  compares regex to return the format of current version
-     *
-     * @return int (enum InitialVersions.java)
-     * **/
-
-    // LEADING DOUBLE
-
     @Test
     public void testFormattedVersion_FORMAT_SINGLE_SHORT() {
         formatter.determineFormat(request.setCurrentVersion("9.9"));
