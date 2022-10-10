@@ -5,7 +5,11 @@ import main.classes.VersionRequest;
 
 public class VersionController {
 
-    public CompletableFuture<VersionRequest> nextVersionFrom(String currentVersion) {
+    public String nextVersionFrom(String currentVersion) {
+        return run(currentVersion).toString();
+    }
+
+    public CompletableFuture<VersionRequest> run(String currentVersion) {
 
         final VersionRequest request = new VersionRequest().setCurrentVersion(currentVersion);
 
@@ -28,11 +32,12 @@ public class VersionController {
         return request.determineNextVersion();
     }
 
+    public CompletableFuture<VersionRequest> determineResult(VersionRequest request) {
+        return request.determineResult();
+    }
+
     public CompletableFuture<VersionRequest> assembleParts(VersionRequest request) {
         return request.determineNextVersion();
     }
 
-    public CompletableFuture<VersionRequest> determineResult(VersionRequest request) {
-        return request.determineResult();
-    }
 }

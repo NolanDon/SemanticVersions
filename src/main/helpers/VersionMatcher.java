@@ -13,7 +13,6 @@ public class VersionMatcher {
 	 * 3 = {determineNextVersion} COMPUTES THE STRING INTO AN INT AND INCREMENTS TO NEXT VERSION
 	 * 4 = {assembleParts} ASSEMBLES PARTS, MAJOR, MINOR, PATCH, ADDITIONAL INTO ONE STRING
 	 * 5 = {determineResult} COMPUTES FINAL RESULT
-	 *
 	 * */
 
 	public enum Format
@@ -24,7 +23,6 @@ public class VersionMatcher {
 		FORMAT_SINGLE_SHORT,
 		FORMAT_SINGLE_VALUE,
 		FORMAT_SINGLE_FAR,
-
 		ERROR;
 	}
 
@@ -90,7 +88,7 @@ public class VersionMatcher {
 	 * */
 	public CompletableFuture<VersionRequest> determineResult(VersionRequest request)
 	{
-		return CompletableFuture.completedFuture(request);
+		return CompletableFuture.completedFuture(request.success());
 	}
 
 	/** DETERMINE FORMAT OF THE VERSION

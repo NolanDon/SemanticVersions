@@ -9,24 +9,27 @@ public class VersionRequest {
 	private Format format;
 	private String[] parts;
 	private STATUS status;
+	private String newVersion = null;
 
-	private enum STATUS
+	public enum STATUS
 	{ SUCCESS, FAILED }
 
+	public String getCurrentVersion() {
+		return this.currentVersion;
+	}
 	public VersionRequest setCurrentVersion(String version) {
 		this.currentVersion = version;
 		return this;
 	}
 
-	public String getCurrentVersion() {
-		return this.currentVersion;
-	}
+	public STATUS getStatus() { return this.status; }
+	public String getResult() { return this.newVersion; }
 
-	public void setParts(String[] array) {
-		this.parts = array;
-	}
 	public String[] getParts() {
 		return this.parts;
+	}
+	public void setParts(String[] array) {
+		this.parts = array;
 	}
 
 	public Format getFormat() {
@@ -36,15 +39,15 @@ public class VersionRequest {
 		this.format = format;
 	}
 
-
 	public VersionRequest failed() {
 		this.status = STATUS.FAILED;
 		return this;
-	};
+	}
+
 	public VersionRequest success() {
 		this.status = STATUS.SUCCESS;
 		return this;
-	};
+	}
 
 	public CompletableFuture<VersionRequest> determineFormat() {
 
