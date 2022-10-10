@@ -1,4 +1,4 @@
-package main.helpers.enums;
+package main.enums;
 
 import java.util.regex.Pattern;
 

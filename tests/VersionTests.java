@@ -1,5 +1,4 @@
-import java.util.concurrent.CompletableFuture;
-import static main.helpers.enums.Format.*;
+import static main.enums.Format.*;
 import main.VersionController;
 import main.classes.VersionRequest;
 import main.helpers.VersionMatcher;

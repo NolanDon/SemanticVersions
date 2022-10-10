@@ -1,43 +1,16 @@
 package main.helpers;
 
 import static main.helpers.HelperMethods.scanIllegalArguments;
-import static main.helpers.enums.Format.*;
-import static main.helpers.enums.Regex.*;
+import static main.helpers.HelperMethods.setDecimals;
+import static main.enums.Format.*;
+import static main.enums.Regex.*;
 import java.util.concurrent.CompletableFuture;
 import main.classes.VersionRequest;
 
 public class VersionMatcher {
 
-	/** FORMATS VERSION REQUEST IN FIVE STAGES
-	 *
-	 * 1 = {determineFormat} DETERMINE THE FORMAT OF THE VERSION, eg: (1.0, 10.0, 1.2.3.4.5.6,)
-	 * 2 = {determineParts} SPLITS THE VERSION STRING INTO ELEMENTS PARTS, eg: ("1.2.3.4" = ["1", "2", "3", "4"])
-	 * 3 = {determineNextVersion} COMPUTES THE STRING INTO AN INT AND INCREMENTS TO NEXT VERSION
-	 * 4 = {assembleParts} ASSEMBLES PARTS, MAJOR, MINOR, PATCH, ADDITIONAL INTO ONE STRING
-	 * 5 = {determineResult} COMPUTES FINAL RESULT
-	 * */
 
-
-
-	public static String setDecimals(VersionRequest request) throws IllegalArgumentException {
-
-		String currentVersion = request.getNewVersion();
-		int format = request.getFormat();
-		String result = "";
-
-		for (int i = 0; i < currentVersion.length(); i ++) {
-			String decimal = ".";
-			if (i <= 1) {
-				 decimal = (i > 0 + format) ? "." : "";
-			}
-			result += decimal + currentVersion.charAt(i);
-		}
-
-		return result;
-	}
-
-
-	/** SPLIT STRING INTO ELEMENTS & SCAN ILLEGAL CHARS
+	/** SPLIT THE CURRENT VERSION AND SCAN FOR ILLEGAL CHARACTERS
 	 *
 	 * @param `VersionRequest`
 	 *

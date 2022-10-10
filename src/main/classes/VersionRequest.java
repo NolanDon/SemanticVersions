@@ -5,19 +5,17 @@ import main.helpers.VersionMatcher;
 
 public class VersionRequest {
 
-	private String currentVersion;
 	private int format;
 	private String parts;
 	private STATUS status;
-	private String finalVersion = null;
 	private String tmpVersion;
-	private int delimiter;
+	private String finalVersion;
+	private String currentVersion;
 
 	private final VersionMatcher matcher = new VersionMatcher();
 
 	public enum STATUS
 	{ SUCCESS, FAILED }
-
 
 	public VersionRequest failed() {
 		this.status = STATUS.FAILED;
@@ -29,8 +27,7 @@ public class VersionRequest {
 		return this;
 	}
 
-	public int getDelimiter() { return this.delimiter; }
-	public void setDelimiter(int value) { this.delimiter = value; }
+	public STATUS getStatus() { return this.status; }
 
 	public String getCurrentVersion() {
 		return this.currentVersion;
@@ -39,8 +36,6 @@ public class VersionRequest {
 		this.currentVersion = version;
 		return this;
 	}
-
-	public STATUS getStatus() { return this.status; }
 
 	public String getFinalVersion() { return this.finalVersion; }
 	public VersionRequest setFinalVersion(String version) {

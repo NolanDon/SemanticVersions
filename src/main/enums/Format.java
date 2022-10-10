@@ -1,4 +1,4 @@
-package main.helpers.enums;
+package main.enums;
 
 public class Format {
 
