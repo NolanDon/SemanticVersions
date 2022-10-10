@@ -46,7 +46,6 @@ public class VersionRequest {
 		return this;
 	};
 
-
 	public CompletableFuture<VersionRequest> determineFormat() {
 
 		return CompletableFuture.completedFuture(this);

@@ -10,8 +10,9 @@ public class VersionController {
         final VersionRequest request = new VersionRequest().setCurrentVersion(currentVersion);
 
         return this.determineFormat(request)
-            .thenCompose(this::determineInitialState)
+            .thenCompose(this::determineParts)
             .thenCompose(this::determineNextVersion)
+            .thenCompose(this::assembleParts)
             .thenCompose(this::determineResult);
     }
 
@@ -19,11 +20,15 @@ public class VersionController {
         return request.determineFormat();
     }
 
-    public CompletableFuture<VersionRequest> determineInitialState(VersionRequest request) {
-        return request.determineInitialState();
+    public CompletableFuture<VersionRequest> determineParts(VersionRequest request) {
+        return request.determineNextVersion();
     }
 
     public CompletableFuture<VersionRequest> determineNextVersion(VersionRequest request) {
+        return request.determineNextVersion();
+    }
+
+    public CompletableFuture<VersionRequest> assembleParts(VersionRequest request) {
         return request.determineNextVersion();
     }
 

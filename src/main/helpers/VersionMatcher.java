@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class VersionMatcher {
 
-	/** FORMATS VERSION REQUEST IN 4 STAGES
+	/** FORMATS VERSION REQUEST IN FIVE STAGES
 	 *
 	 * 1 = {determineFormat} DETERMINE THE FORMAT OF THE VERSION, eg: (1.0, 10.0, 1.2.3.4.5.6,)
 	 * 2 = {determineParts} SPLITS THE VERSION STRING INTO ELEMENTS PARTS, eg: ("1.2.3.4" = ["1", "2", "3", "4"])
@@ -144,15 +144,15 @@ public class VersionMatcher {
 		return CompletableFuture.completedFuture(request);
 	}
 
-	/** DETERMINE FORMAT OF THE VERSION
-	 *
-	 * @param `VersionRequest`
-	 *
-	 * @return CompletableFuture<VersionRequest>
-	 * */
-	public CompletableFuture<VersionRequest> determineNextVersion(VersionRequest request)
-	{
-		return CompletableFuture.completedFuture(request);
-	}
+//	/** DETERMINE FORMAT OF THE VERSION
+//	 *
+//	 * @param `VersionRequest`
+//	 *
+//	 * @return CompletableFuture<VersionRequest>
+//	 * */
+//	public CompletableFuture<VersionRequest> determineNextVersion(VersionRequest request)
+//	{
+//		return CompletableFuture.completedFuture(request);
+//	}
 
 }
