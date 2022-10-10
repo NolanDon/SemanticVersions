@@ -14,7 +14,7 @@ public class VersionTests {
 
     @Test
     public void testStartStateResultTrue_1() {
-        Assert.assertEquals(CompletableFuture.completedFuture(Format.FORMAT_MAJOR_SINGLE_VALUE), controller.nextVersionFrom("1.2.3"));
+        Assert.assertEquals(CompletableFuture.completedFuture(Format.FORMAT_SINGLE_VALUE), controller.nextVersionFrom("1.2.3"));
     }
 
     @Test
@@ -45,11 +45,43 @@ public class VersionTests {
      * **/
 
     // LEADING DOUBLE
-//    @Test
-//    public void testFormattedVersion_FAIL_1() {
-//        Assert.assertEquals(Format.FORMAT_MAJOR_LEADING_SINGLE_SHORT, formatter.determineInitialState(request.setCurrentVersion("9.9")));
-//    }
-//
+
+    @Test
+    public void testFormattedVersion_FORMAT_SINGLE_SHORT() {
+        formatter.determineFormat(request.setCurrentVersion("9.9"));
+        Assert.assertEquals(Format.FORMAT_SINGLE_SHORT, request.getFormat());
+    }
+
+    @Test
+    public void testFormattedVersion_FORMAT_SINGLE_LONG() {
+        formatter.determineFormat(request.setCurrentVersion("9.9.9"));
+        Assert.assertEquals(Format.FORMAT_SINGLE_LONG, request.getFormat());
+    }
+
+    @Test
+    public void testFormattedVersion_FORMAT_DOUBLE_LONG() {
+        formatter.determineFormat(request.setCurrentVersion("90.9.9"));
+        Assert.assertEquals(Format.FORMAT_DOUBLE_LONG, request.getFormat());
+    }
+
+    @Test
+    public void testFormattedVersion_FORMAT_DOUBLE_SHORT() {
+        formatter.determineFormat(request.setCurrentVersion("90.9"));
+        Assert.assertEquals(Format.FORMAT_DOUBLE_SHORT, request.getFormat());
+    }
+
+    @Test
+    public void testFormattedVersion_FORMAT_SINGLE_VALUE() {
+        formatter.determineFormat(request.setCurrentVersion("9"));
+        Assert.assertEquals(Format.FORMAT_SINGLE_VALUE, request.getFormat());
+    }
+
+    @Test
+    public void testFormattedVersion_FORMAT_SINGLE_FAR() {
+        formatter.determineFormat(request.setCurrentVersion("9.9.9.9"));
+        Assert.assertEquals(Format.FORMAT_SINGLE_FAR, request.getFormat());
+    }
+
 //    @Test
 //    public void testFormattedVersion_FAIL_2() {
 //        Assert.assertEquals(Format.ERROR,formatter.determineInitialState(request.setCurrentVersion("100.0.0")));

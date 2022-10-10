@@ -18,17 +18,23 @@ public class VersionMatcher {
 
 	public enum Format
 	{
-		FORMAT_MAJOR_LEADING_DOUBLE,
-		FORMAT_MAJOR_LEADING_SINGLE_SHORT,
-		FORMAT_MAJOR_LEADING_SINGLE_LONG,
-		FORMAT_MAJOR_SINGLE_VALUE,
+		FORMAT_DOUBLE_SHORT,
+		FORMAT_DOUBLE_LONG,
+		FORMAT_SINGLE_LONG,
+		FORMAT_SINGLE_SHORT,
+		FORMAT_SINGLE_VALUE,
+		FORMAT_SINGLE_FAR,
 
 		ERROR;
 	}
 
-	private static Pattern REGEX_PATTERN_DOUBLE = Pattern.compile("^(([0-9])[0-9]).([0-9]).([0-9])");
-	private static Pattern REGEX_PATTERN_SINGLE = Pattern.compile("^(([0-9])[0-9]).([0-9]).([0-9])");
-	private static Pattern REGEX_SINGLE_VALUE = Pattern.compile("^(([0-9])[0-9]).([0-9]).([0-9])");
+	private static Pattern REGEX_DOUBLE_SHORT = Pattern.compile("^(([0-9])[0-9]).([0-9])");
+	private static Pattern REGEX_DOUBLE_LONG = Pattern.compile("^(([0-9])[0-9]).([0-9]).([0-9])");
+
+	private static Pattern REGEX_SINGLE_LONG = Pattern.compile("^(([0-9]).([0-9]).([0-9]))");
+	private static Pattern REGEX_SINGLE_SHORT = Pattern.compile("^(([0-9]).([0-9]))");
+	private static Pattern REGEX_SINGLE_FAR = Pattern.compile("^([0-9]|.{7,20})");
+	private static Pattern REGEX_SINGLE_VALUE = Pattern.compile("^(([0-9]))");
 
 	/** SPLIT STRING INTO ELEMENTS & SCAN ILLEGAL CHARS
 	 *
@@ -36,9 +42,9 @@ public class VersionMatcher {
 	 *
 	 * @return CompletableFuture<Format>
 	 * */
-	public CompletableFuture<Format> determineParts(VersionRequest request)
+	public CompletableFuture<VersionRequest> determineParts(VersionRequest request)
 	{
-		return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_SINGLE_VALUE);
+		return CompletableFuture.completedFuture(request);
 	}
 
 	/** ASSEMBLE THE STRING BACK AFTER INCREMENTATION
@@ -47,9 +53,12 @@ public class VersionMatcher {
 	 *
 	 * @return CompletableFuture<Format>
 	 * */
-	public CompletableFuture<Format> assembleParts(VersionRequest request)
+	public CompletableFuture<VersionRequest> assembleParts(VersionRequest request)
 	{
-		return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_SINGLE_VALUE);
+		String[] array = request.getCurrentVersion().split(".");
+
+		request.setParts(array);
+		return CompletableFuture.completedFuture(request);
 	}
 
 	/** COMPUTES FINAL RESULT
@@ -58,9 +67,9 @@ public class VersionMatcher {
 	 *
 	 * @return CompletableFuture<Format>
 	 * */
-	public CompletableFuture<Format> determineResult(VersionRequest request)
+	public CompletableFuture<VersionRequest> determineResult(VersionRequest request)
 	{
-		return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_SINGLE_VALUE);
+		return CompletableFuture.completedFuture(request);
 	}
 
 	/** DETERMINE FORMAT OF THE VERSION
@@ -69,21 +78,49 @@ public class VersionMatcher {
 	 *
 	 * @return CompletableFuture<Format>
 	 * */
-	public CompletableFuture<Format> determineFormat(VersionRequest request)
+	public CompletableFuture<VersionRequest> determineFormat(VersionRequest request)
 	{
 
 		String version = request.getCurrentVersion();
 
-		if (REGEX_PATTERN_DOUBLE.matcher(version).matches())
-			return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_LEADING_DOUBLE);
+		if (REGEX_DOUBLE_SHORT.matcher(version).matches()) {
 
-		if (REGEX_PATTERN_SINGLE.matcher(version).matches())
-			return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_LEADING_SINGLE_SHORT);
+			request.setFormat(Format.FORMAT_DOUBLE_SHORT);
+			return CompletableFuture.completedFuture(request);
+		}
 
-		if (REGEX_SINGLE_VALUE.matcher(version).matches())
-			return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_SINGLE_VALUE);
+		if (REGEX_SINGLE_FAR.matcher(version).matches()) {
 
-		return CompletableFuture.completedFuture(Format.ERROR);
+			request.setFormat(Format.FORMAT_SINGLE_FAR);
+			return CompletableFuture.completedFuture(request);
+		}
+
+		if (REGEX_DOUBLE_LONG.matcher(version).matches()) {
+
+			request.setFormat(Format.FORMAT_DOUBLE_LONG);
+			return CompletableFuture.completedFuture(request);
+		}
+
+		if (REGEX_SINGLE_LONG.matcher(version).matches()) {
+
+			request.setFormat(Format.FORMAT_SINGLE_LONG);
+			return CompletableFuture.completedFuture(request);
+		}
+
+		if (REGEX_SINGLE_SHORT.matcher(version).matches()) {
+
+			request.setFormat(Format.FORMAT_SINGLE_SHORT);
+			return CompletableFuture.completedFuture(request);
+		}
+
+		if (REGEX_SINGLE_VALUE.matcher(version).matches()) {
+
+			request.setFormat(Format.FORMAT_SINGLE_VALUE);
+			return CompletableFuture.completedFuture(request);
+		}
+
+		request.setFormat(Format.ERROR);
+		return CompletableFuture.completedFuture(request);
 	}
 
 	/** DETERMINE FORMAT OF THE VERSION
@@ -92,9 +129,9 @@ public class VersionMatcher {
 	 *
 	 * @return CompletableFuture<Format>
 	 * */
-	public CompletableFuture<Format> determineNextVersion(VersionRequest request)
+	public CompletableFuture<VersionRequest> determineNextVersion(VersionRequest request)
 	{
-		return CompletableFuture.completedFuture(Format.FORMAT_MAJOR_SINGLE_VALUE);
+		return CompletableFuture.completedFuture(request);
 	}
 
 }
