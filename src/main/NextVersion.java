@@ -1,6 +1,7 @@
 package main;
 
-import main.classes.router.Router;
+import main.classes.VersionController;
+import main.classes.VersionRequest;
 
 public class NextVersion {
     public static void main(String[] args) {}
@@ -11,7 +12,7 @@ public class NextVersion {
                 .setCurrentVersion(currentVersion);
 
         Router router = new Router();
-        FSMVersionController fsmMachine = new FSMVersionController();
+        VersionController fsmMachine = new VersionController();
 
         synchronized (fsmMachine) {
             fsmMachine.nextVersion(currentVersion);
