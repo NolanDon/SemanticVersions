@@ -13,47 +13,47 @@ public class VersionTests {
     VersionRequest request = new VersionRequest();
 
     @Test
-    public void testStartStateResultTrue_1() {
+    public void testNextVersion_1() {
         Assert.assertEquals("1.2.4", controller.nextVersionFrom("1.2.3"));
     }
 
     @Test
-    public void testStartStateResultTrue_2() {
+    public void testNextVersion_2() {
         Assert.assertEquals("20.0.3", controller.nextVersionFrom("20.0.2"));
     }
 
     @Test
-    public void testStartStateResultTrue_3() {
+    public void testNextVersion_3() {
         Assert.assertEquals("100", controller.nextVersionFrom("99"));
     }
 
     @Test
-    public void testStartStateResultTrue_5() {
+    public void testNextVersion_4() {
         Assert.assertEquals("1.2.5", controller.nextVersionFrom("1.2.4"));
     }
 
     @Test
-    public void testStartStateResultTrue_6() {
+    public void testNextVersion_5() {
         Assert.assertEquals("1.0.0", controller.nextVersionFrom("0.9.9"));
     }
 
     @Test
-    public void testStartStateResultTrue_7() {
+    public void testNextVersion_6() {
         Assert.assertEquals("2", controller.nextVersionFrom("1"));
     }
 
     @Test
-    public void testStartStateResultTrue_8() {
+    public void testNextVersion_7() {
         Assert.assertEquals("1.2.3.4.5.6.7.9", controller.nextVersionFrom("1.2.3.4.5.6.7.8"));
     }
 
     @Test
-    public void testStartStateResultTrue_9() {
+    public void testNextVersion_8() {
         Assert.assertEquals("10.0", controller.nextVersionFrom("9.9"));
     }
 
     @Test
-    public void testFormattedVersion_FORMAT_SINGLE_SHORT() {
+    public void testFormattingVersion_FORMAT_DOUBLE_SHORT() {
         formatter.determineFormat(request.setCurrentVersion("9.9"));
         Assert.assertEquals(FORMAT_DOUBLE_SHORT, request.getFormat());
     }
