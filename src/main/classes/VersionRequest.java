@@ -7,6 +7,7 @@ public class VersionRequest {
 
 	private String currentVersion;
 	private Format format;
+	private String[] parts;
 
 	public VersionRequest setCurrentVersion(String version) {
 		this.currentVersion = version;
@@ -17,8 +18,20 @@ public class VersionRequest {
 		return this.currentVersion;
 	}
 
+	public void setParts(String[] array) {
+		this.parts = array;
+	}
+
+	public String[] getParts() {
+		return this.parts;
+	}
+
 	public Format getFormat() {
 		return this.format;
+	}
+
+	public void setFormat(Format format) {
+		this.format = format;
 	}
 
 	public CompletableFuture<VersionRequest> determineFormat() {
