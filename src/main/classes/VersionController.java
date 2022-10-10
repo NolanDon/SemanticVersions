@@ -1,4 +1,4 @@
-package main;
+package main.classes;
 
 import main.classes.*;
 import main.enums.*;
@@ -7,7 +7,7 @@ import main.interfaces.*;
 
 import java.util.HashMap;
 
-public class FSMMachineController {
+public class VersionController {
 
     public static MachineStateInterface currentState = new StateZero();
 
@@ -25,7 +25,7 @@ public class FSMMachineController {
     }
 
     // LOOP THROUGH BINARY VALUE RETURNS END RESULT
-    public double startState(String value) {
+    public double nextVersion(String value) {
 
         if (!StateHelpers.containsNonNumericals(value)) { throw new IllegalArgumentException(); }
 

@@ -1,22 +1,11 @@
-import main.FSMVersionController;
-import main.StartEngine;
+
+import main.classes.VersionController;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public class VersioningTests {
 
-public class UnitTests {
-
-    StartEngine startEngine;
-
-    FSMVersionController version = new FSMVersionController();
-
-
-//    nextVersion("1.2.3") === "1.2.4";
-//    nextVersion("0.9.9") === "1.0.0";
-//    nextVersion("1") === "2";
-//    nextVersion("1.2.3.4.5.6.7.8") === "1.2.3.4.5.6.7.9";
-//    nextVersion("9.9") === “10.0";
+    VersionController version = new VersionController();
 
     @Test
     public void testStartStateResultTrue_1() {

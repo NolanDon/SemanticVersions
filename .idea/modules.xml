@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FSMMachineJava.iml" filepath="$PROJECT_DIR$/FSMMachineJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SemanticVersioning.iml" filepath="$PROJECT_DIR$/SemanticVersioning.iml" />
     </modules>
   </component>
 </project>
