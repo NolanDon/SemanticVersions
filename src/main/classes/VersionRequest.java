@@ -1,43 +1,23 @@
 package main.classes;
 
 import java.util.concurrent.CompletableFuture;
-import main.helpers.VersionMatcher.Format;
+import main.helpers.VersionMatcher;
 
 public class VersionRequest {
 
 	private String currentVersion;
-	private Format format;
-	private String[] parts;
+	private int format;
+	private String parts;
 	private STATUS status;
-	private String newVersion = null;
+	private String finalVersion = null;
+	private String tmpVersion;
+	private int delimiter;
+
+	private final VersionMatcher matcher = new VersionMatcher();
 
 	public enum STATUS
 	{ SUCCESS, FAILED }
 
-	public String getCurrentVersion() {
-		return this.currentVersion;
-	}
-	public VersionRequest setCurrentVersion(String version) {
-		this.currentVersion = version;
-		return this;
-	}
-
-	public STATUS getStatus() { return this.status; }
-	public String getResult() { return this.newVersion; }
-
-	public String[] getParts() {
-		return this.parts;
-	}
-	public void setParts(String[] array) {
-		this.parts = array;
-	}
-
-	public Format getFormat() {
-		return this.format;
-	}
-	public void setFormat(Format format) {
-		this.format = format;
-	}
 
 	public VersionRequest failed() {
 		this.status = STATUS.FAILED;
@@ -49,23 +29,65 @@ public class VersionRequest {
 		return this;
 	}
 
-	public CompletableFuture<VersionRequest> determineFormat() {
+	public int getDelimiter() { return this.delimiter; }
+	public void setDelimiter(int value) { this.delimiter = value; }
 
-		return CompletableFuture.completedFuture(this);
+	public String getCurrentVersion() {
+		return this.currentVersion;
+	}
+	public VersionRequest setCurrentVersion(String version) {
+		this.currentVersion = version;
+		return this;
 	}
 
-	public CompletableFuture<VersionRequest> determineInitialState() {
+	public STATUS getStatus() { return this.status; }
 
-		return CompletableFuture.completedFuture(this);
+	public String getFinalVersion() { return this.finalVersion; }
+	public VersionRequest setFinalVersion(String version) {
+		this.finalVersion = version;
+		return this;
+	}
+
+	public String getSplitVersion() {
+		return this.parts;
+	}
+	public void setSplitVersion(String version) {
+		this.parts = version;
+	}
+
+	public int getFormat() {
+		return this.format;
+	}
+	public void setFormat(int format) {
+		this.format = format;
+	}
+
+	public String getNewVersion() { return this.tmpVersion; }
+	public void setNewVersion(int version) { this.tmpVersion = String.valueOf(version); }
+
+
+	public CompletableFuture<VersionRequest> determineFormat() {
+
+		return matcher.determineFormat(this);
+	}
+
+	public CompletableFuture<VersionRequest> determineParts() {
+
+		return matcher.determineParts(this);
+	}
+
+	public CompletableFuture<VersionRequest> assembleParts() {
+
+		return matcher.assembleParts(this);
 	}
 
 	public CompletableFuture<VersionRequest> determineNextVersion() {
 
-		return CompletableFuture.completedFuture(this);
+		return matcher.determineNextVersion(this);
 	}
 
 	public CompletableFuture<VersionRequest> determineResult() {
 
-		return CompletableFuture.completedFuture(this);
+		return matcher.determineResult(this);
 	}
 }

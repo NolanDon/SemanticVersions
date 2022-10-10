@@ -5,8 +5,13 @@ import main.classes.VersionRequest;
 
 public class VersionController {
 
+    public static void main(String[] args) {
+       new VersionController().nextVersionFrom("9.9");
+    }
+
     public String nextVersionFrom(String currentVersion) {
-        return run(currentVersion).toString();
+        VersionRequest result = run(currentVersion).join();
+        return result.getFinalVersion();
     }
 
     public CompletableFuture<VersionRequest> run(String currentVersion) {
@@ -25,7 +30,7 @@ public class VersionController {
     }
 
     public CompletableFuture<VersionRequest> determineParts(VersionRequest request) {
-        return request.determineNextVersion();
+        return request.determineParts();
     }
 
     public CompletableFuture<VersionRequest> determineNextVersion(VersionRequest request) {
@@ -37,7 +42,7 @@ public class VersionController {
     }
 
     public CompletableFuture<VersionRequest> assembleParts(VersionRequest request) {
-        return request.determineNextVersion();
+        return request.assembleParts();
     }
 
 }
